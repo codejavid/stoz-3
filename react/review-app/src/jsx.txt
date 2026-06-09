@@ -1,0 +1,50 @@
+import React from 'react'
+
+const App = () => {
+
+  const name = "javid";
+
+  const users = [
+    {id:1, text:"User 1"},
+    {id:2, text:"User 2"},
+    {id:3, text:"User 3"}
+  ];
+
+  const loading = false;
+
+  if(loading) return <h1>Loading...</h1>
+
+
+  const showUser = true;
+
+
+  return (
+   
+    <>
+        <h1>{name}</h1>
+        <h2>{5 + 5}</h2>
+
+        <h3>user length {users.length}</h3>
+
+       {/* {showUser ? ( <ul>
+          {users.map((user) => (
+            <li>{user.text}</li>
+          ))}
+        </ul>) : null} */}
+
+        <h1>{name.toUpperCase()}</h1>
+
+        {showUser && (<ul>
+          {users.map((user) => (
+            <li>{user.text}</li>
+          ))}
+        </ul>)}
+    </>
+  )
+}
+
+export default App
+
+
+
+
