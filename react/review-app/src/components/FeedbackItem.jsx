@@ -2,14 +2,17 @@ import React from 'react'
 
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import Card from './sharder/Card';
 
 
 
-const FeedbackItem = ({ item }) => {
+const FeedbackItem = ({ item,handleDelete }) => {
+
+    
 
 
     return (
-        <div className='card'>
+        <Card>
             <div className='card-wrapper'>
                 <h4>{item.text}</h4>
 
@@ -21,12 +24,12 @@ const FeedbackItem = ({ item }) => {
                     </div>
                     <div className='delete'>
 
-                        <MdDelete />
+                        <MdDelete onClick={() => handleDelete(item.id)}/>
 
                     </div>
                 </div>
             </div>
-        </div>
+        </Card>
     )
 }
 

@@ -1,6 +1,10 @@
 import { useState } from "react"
 import Header from "./components/Header"
 import FeedbackList from "./components/FeedbackList";
+import FeedbackStats from "./components/FeedbackStats";
+import Card from "./components/sharder/Card";
+import FeedbackForm from "./components/FeedbackForm";
+
 
 const App = () => {
 
@@ -21,12 +25,27 @@ const App = () => {
   ]);
 
 
+  const deleteFeedback = (id) => {
+    
+    if(window.confirm("Are you sure")){
+       setFeedback(feedback.filter(item => item.id !== id))
+    }
+
+  }
+
+
 
   return (
     <div>
       <Header/>
      <div className="container">
-       <FeedbackList feedback={feedback}/>
+
+       <FeedbackForm/>
+
+       <FeedbackStats feedback={feedback}/>
+       <FeedbackList feedback={feedback} handleDelete={deleteFeedback}/>
+
+      
      </div>
     </div>
   )
