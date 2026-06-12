@@ -1,7 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Card from './sharder/Card'
+import Button from './sharder/Button';
+import FeedbackContext from '../context/FeedbackContext'
+
+import { v4 as uuidv4 } from "uuid";
 
 const FeedbackForm = () => {
+
+
+  const {addFeedback, feedbackEdit, updateFeedback} = useContext(FeedbackContext)
 
     
   const [text, setText] = useState("");  
@@ -10,7 +17,7 @@ const FeedbackForm = () => {
 
 
   const handleTextChange = (e) => {
-    const trimmedText = e.target.value.trim();
+    const trimmedText = e.target.value.trimStart();
 
     let textError = "";
 
@@ -27,14 +34,39 @@ const FeedbackForm = () => {
 
   }
 
+  const handleSubmit = (e) => {
+     e.preventDefault();
+
+     const newFeedback = {
+       id:uuidv4(),
+       text:text
+     };
+
+     if(feedbackEdit.edit === true){
+      updateFeedback(feedbackEdit.item.id, newFeedback);
+     }else{
+      addFeedback(newFeedback);
+     }
+     
+  };
+
+  useEffect(() => {
+    if(feedbackEdit.edit === true){
+      setBtnDisable(false);
+      setText(feedbackEdit.item.text)
+    }
+  }, [feedbackEdit]);
+
   return (
     <Card>
         <h3>Add your Reviews</h3>
 
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className='input-group'>
                 <input type="text" placeholder='Enter your ideas' value={text} onChange={handleTextChange}/>
-                <button disabled={btnDisable}>Send</button>
+                <Button version="primary" type="submit" isDisabled={btnDisable}>
+                   Send
+                </Button>
             </div>
 
             <p className='message'>{message}</p>
