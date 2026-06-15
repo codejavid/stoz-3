@@ -3,7 +3,9 @@ import Header from "./components/Header"
 import FeedbackList from "./components/FeedbackList";
 import FeedbackStats from "./components/FeedbackStats";
 import FeedbackForm from "./components/FeedbackForm";
-
+import { Routes, Route } from "react-router-dom";
+import Blog from "./pages/Blog"
+import About from "./pages/About"
 
 
 
@@ -29,16 +31,29 @@ const App = () => {
 
   return (
     <div>
-      <Header/>
-     <div className="container">
+      <Header />
+      <div className="container">
 
-       <FeedbackForm/>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <FeedbackForm />
+              <FeedbackStats />
+              <FeedbackList />
+            </>
+          } />
 
-       <FeedbackStats/>
-       <FeedbackList/>
+          <Route path="/blog" element={
+            <Blog />
+          } />
 
-      
-     </div>
+          <Route path="/about" element={
+            <About />
+          } />
+        </Routes>
+
+
+      </div>
     </div>
   )
 }

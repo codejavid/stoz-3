@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 
 
 const Header = ({text="Review app", bgColor="#333333" ,textColor="white"}) => {
@@ -14,7 +16,13 @@ const Header = ({text="Review app", bgColor="#333333" ,textColor="white"}) => {
       color:textColor
     }}>
         <div className="container">
-          <h1>{text}</h1>
+          <div className="d-flex">
+            <Link to="/">
+              <h1>{text}</h1>
+            </Link>
+            <Link to="/blog">Blog</Link>
+            <Link to="/about">About</Link>
+          </div>
         </div>
     </header>
   )
