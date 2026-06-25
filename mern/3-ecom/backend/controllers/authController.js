@@ -1,9 +1,15 @@
 import User from "../models/User.js";
-
+import jwt from "jsonwebtoken";
 
 
 // @desc Register user
 // @route POST /api/auth/register
+
+const generateToken = (id) => {
+    return jwt.sign({id}, process.env.JWT_SECRET, {
+        expiresIn:"30d"
+    })
+};
 
 
 export const registerUser = async(req, res) => {
@@ -32,7 +38,7 @@ export const registerUser = async(req, res) => {
                 name:user.name, 
                 email:user.email, 
                 isAdmin:user.isAdmin, 
-                token:"token", 
+                token:generateToken(user._id), 
             })
         }else{
             res.status(400).json({message:`Invalid user data`})
@@ -64,7 +70,7 @@ export const loginUser = async(req, res) => {
                 name:user.name, 
                 email:user.email, 
                 isAdmin:user.isAdmin, 
-                token:"token", 
+                token:generateToken(user._id), 
             })
         }else{
             res.status(401).json({message:`Invalid email or password`})
@@ -78,3 +84,20 @@ export const loginUser = async(req, res) => {
 
 
 }
+
+// @desc Get user profile
+// @route GET /api/auth/profile
+
+// export const getUserProfile = async(req, res) => {
+
+//     try{
+
+//        const user = await User.findById()
+       
+    
+
+//     }catch(error){
+//         res.status(500).json({message:error.message})
+//     }
+
+// }
