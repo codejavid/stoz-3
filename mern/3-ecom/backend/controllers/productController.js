@@ -35,7 +35,9 @@ export const createProduct = async(req, res) => {
         })
 
         const createdProduct = await product.save();
+        console.log("I passed a middleware");
         res.status(201).json(createdProduct);
+        
         
     }catch(error){
         res.status(500).json({message:error.message});
