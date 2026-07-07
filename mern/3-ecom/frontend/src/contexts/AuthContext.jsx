@@ -23,6 +23,17 @@ export const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
 
 
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if(token){
+            fetchUserProfile();
+        }else{
+            setLoading(false);
+        }
+    }, []);
+
+
     const register = async(name, email, password) => {
 
         try{
@@ -55,6 +66,21 @@ export const AuthProvider = ({children}) => {
 
     }
 
+    const fetchUserProfile = async() => {
+
+        try{ 
+
+            const {data} = await api.get("/auth/profile");
+            setUser(data);
+
+        }catch(error){
+            localStorage.removeItem("token");
+        }finally{
+            setLoading(false);
+        }
+
+    }
+
     const logout = async( email, password) => {
         localStorage.removeItem("token");
         setUser(null);
@@ -63,6 +89,7 @@ export const AuthProvider = ({children}) => {
 
     const value = {
         user,
+        loading,
         register,
         login,
         logout

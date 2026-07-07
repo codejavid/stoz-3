@@ -1,11 +1,14 @@
 
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import { useCart } from "../contexts/CartContext";
+
 
 const HomePage = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
   
   useEffect(() => {
     fetchProducts();
@@ -59,12 +62,14 @@ const HomePage = () => {
                 <span className="text-sm text-gray-500">Stock: {product.stock}</span>
               </div>
               <button
+              
                 className={`w-full py-2 rounded transition ${
                   product.stock > 0 
                     ? 'bg-blue-600 text-white hover:bg-blue-700' 
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }`}
                 disabled={product.stock === 0}
+                onClick={() => addToCart(product)}
               >
                 {product.stock > 0 ? 'Add to Cart 🛒' : 'Out of Stock'}
               </button>
