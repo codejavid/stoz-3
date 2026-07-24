@@ -4,6 +4,7 @@ from pypdf import PdfReader
 from chunker import chunk_text
 from embedding import create_embedding
 from vectordb import store_chunks,search_chunks, get_all_chunks
+from llm import ask_llm
 
 app = FastAPI()
 
@@ -68,9 +69,16 @@ def chat(question: str):
 
     question_embedding = create_embedding(question)
 
-    result = search_chunks(question_embedding)
+    results = search_chunks(question_embedding)
+
+    documents = results["documents"][0]
+
+    context = "\n\n".join(documents)
+
+    answer = ask_llm(context, question)
 
     return {
         "question": question,
-        "result": result["documents"][0]
+        "result": results["documents"][0],
+        "answer":answer
     }

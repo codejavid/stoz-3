@@ -23,8 +23,11 @@ def search_chunks(query_embedding):
 
     results = collection.query(
         query_embeddings=[query_embedding],
-        n_results=3
+        n_results=3,
+        include=["documents", "distances"]
     )
+
+    print(results)
 
     return results
 
