@@ -1,27 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import api from '../services/api'
+import HomePage from './pages/HomePage'
 
-
-const App = () => {
-
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    fetchMessage();
-  },[]);
-
-  async function fetchMessage() {
-    const response = await api.get("/");
-    setMessage(response.data.message);
-  }
-
-  return (
-    <>
-     <div>Rag chatbot</div>
-
-     <h2>{message}</h2>
-    </>
-  )
+function App() {
+  return <HomePage />
 }
 
 export default App
